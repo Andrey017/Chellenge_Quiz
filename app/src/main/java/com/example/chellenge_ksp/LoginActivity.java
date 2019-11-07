@@ -24,7 +24,11 @@ public class LoginActivity extends AppCompatActivity {
 
         db = new DatabaseHandler(this);
 
-        db.deleteAllUser();
+        int count = db.getUserCount();
+
+        if (count == 1){
+            openMain();
+        }
 
         final Button loginButton = findViewById(R.id.login);
         final Button button_reg = findViewById(R.id.button_reg);

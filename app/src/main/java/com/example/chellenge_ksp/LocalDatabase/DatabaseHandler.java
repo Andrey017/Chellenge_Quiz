@@ -93,9 +93,12 @@ public class DatabaseHandler extends SQLiteOpenHelper implements IDatabaseHandle
         String countQuery = "SELECT * FROM " + TABLE_USER;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(countQuery, null);
+
+        int count = cursor.getCount();
+
         cursor.close();
 
-        return cursor.getCount();
+        return count;
     }
 
     @Override
