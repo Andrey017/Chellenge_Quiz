@@ -27,6 +27,8 @@
         <activity android:name="Registration"></activity>
         <activity android:name=".Main"></activity>
         <activity android:name="ActivityQuestion"></activity>
+        <activity android:name=".AddUserGameActivity"></activity>
+        <activity android:name=".Game"></activity>
     </application>
 
 </manifest>

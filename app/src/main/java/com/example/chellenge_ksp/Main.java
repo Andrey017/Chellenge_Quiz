@@ -10,6 +10,7 @@ import com.example.chellenge_ksp.LocalDatabase.DatabaseHandler;
 
 public class Main extends AppCompatActivity {
 
+    public Button new_game;
     public Button exit;
     DatabaseHandler db;
 
@@ -17,8 +18,16 @@ public class Main extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        new_game = findViewById(R.id.new_game);
         exit = findViewById(R.id.exit);
         db = new DatabaseHandler(this);
+
+        new_game.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openGame();
+            }
+        });
 
         exit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -36,4 +45,11 @@ public class Main extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
+
+    public void openGame(){
+        Intent intent  = new Intent(this , Game.class);
+        startActivity(intent);
+        finish();
+    }
+
 }
