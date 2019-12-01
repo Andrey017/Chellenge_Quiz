@@ -14,6 +14,15 @@ import java.util.ArrayList;
 
 public class GameAdapter extends RecyclerView.Adapter<GameAdapter.ViewHolder> {
     private ArrayList<ItemGame> itemGameArrayList;
+    private OnItemClickListener onItemClickListener;
+
+    public interface OnItemClickListener{
+        void onItemClick(int position);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener){
+        onItemClickListener = listener;
+    }
 
     public GameAdapter(ArrayList<ItemGame> itemGames){
         itemGameArrayList = itemGames;
@@ -23,7 +32,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.ViewHolder> {
     @Override
     public GameAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_row_game, parent, false);
-        ViewHolder viewHolder = new ViewHolder(view);
+        ViewHolder viewHolder = new ViewHolder(view, onItemClickListener);
         return viewHolder;
     }
 
@@ -44,10 +53,22 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.ViewHolder> {
         private TextView gtextView;
         private ImageView gimageView;
 
-        public ViewHolder(@NonNull View itemView) {
+        public ViewHolder(@NonNull View itemView, final OnItemClickListener listener) {
             super(itemView);
             gtextView = itemView.findViewById(R.id.textView_row_game);
             gimageView = itemView.findViewById(R.id.imageView_row_game);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (listener != null){
+                        int position = getAdapterPosition();
+                        if(position != RecyclerView.NO_POSITION){
+                            listener.onItemClick(position);
+                        }
+                    }
+                }
+            });
         }
     }
 }

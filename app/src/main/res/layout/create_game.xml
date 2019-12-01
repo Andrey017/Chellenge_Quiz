@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="5dp"
-    android:background= "?attr/colorPrimary">
+    android:background= "?attr/colorPrimary"
+    android:id="@+id/lianerLayout">
 
     <TextView
         android:id="@+id/textView"
@@ -19,13 +18,6 @@
         android:textStyle="bold"
         android:textColor="#FFFFFF"/>
 
-    <ImageButton
-        android:id="@+id/imageButton2"
-        android:layout_width="140dp"
-        android:layout_height="140dp"
-        android:background="@drawable/enter_photo"
-        android:layout_gravity="center"/>
-
     <EditText
         android:id="@+id/textView_name_game"
         android:layout_gravity="center"
@@ -36,6 +28,100 @@
         android:hint="Название"
         android:textColorHint="#FFFFFF"
         android:textColor="#FFFFFF"/>
+
+    <TextView
+        android:id="@+id/textView_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="5dp"
+        android:text="Выберите количество игроков:"
+        android:textSize="17sp"
+        android:textColor="#FFFFFF" />
+
+    <RadioGroup
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp">
+
+        <RadioButton
+            android:id="@+id/radioButton_2"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="2"
+            android:textColor="#FFFFFF"
+            android:textColorHint="#FFFFFF"
+            android:checked="true"/>
+
+        <RadioButton
+            android:id="@+id/radioButton_3"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="3"
+            android:textColor="#FFFFFF"
+            android:textColorHint="#FFFFFF" />
+
+        <RadioButton
+            android:id="@+id/radioButton_4"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="4"
+            android:textColor="#FFFFFF"
+            android:textColorHint="#FFFFFF" />
+    </RadioGroup>
+
+    <EditText
+        android:id="@+id/textView_name_player_1"
+        android:layout_gravity="center"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:ems="10"
+        android:hint="Игрок №1"
+        android:textColorHint="#FFFFFF"
+        android:textColor="#FFFFFF"
+        android:enabled="false"/>
+
+    <EditText
+        android:id="@+id/textView_name_player_2"
+        android:layout_gravity="center"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:ems="10"
+        android:hint="Игрок №2"
+        android:textColorHint="#FFFFFF"
+        android:textColor="#FFFFFF" />
+
+    <EditText
+        android:id="@+id/textView_name_player_3"
+        android:layout_gravity="center"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:ems="10"
+        android:hint="Игрок №3"
+        android:textColorHint="#FFFFFF"
+        android:textColor="#FFFFFF"
+        android:visibility="gone"/>
+
+    <EditText
+        android:id="@+id/textView_name_player_4"
+        android:layout_gravity="center"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:ems="10"
+        android:hint="Игрок №4"
+        android:textColorHint="#FFFFFF"
+        android:textColor="#FFFFFF"
+        android:enabled="false"
+        android:visibility="gone"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -71,4 +157,5 @@
             android:textColor="#FFFFFF"/>
 
     </RelativeLayout>
+
 </LinearLayout>
