@@ -13,8 +13,7 @@ public class User_game {
 
     }
 
-    public User_game(int _id, int id_game, int user_id, String name, String surname, String email, int score){
-        this._id = _id;
+    public User_game(int id_game, int user_id, String name, String surname, String email, int score){
         this.id_game = id_game;
         this.user_id = user_id;
         this.name = name;

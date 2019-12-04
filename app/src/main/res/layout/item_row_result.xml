@@ -8,15 +8,6 @@ android:layout_width="match_parent"
 android:background="@drawable/roundedbutton_1"
 android:layout_marginBottom="15dp">
 
-    <ImageView
-        android:id="@+id/imageView_row_result"
-        android:layout_width="64dp"
-        android:layout_height="50dp"
-        android:layout_margin="8dp"
-        android:layout_weight="1"
-        android:scaleType="fitCenter"
-        tools:ignore="Suspicious0dp" />
-
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
@@ -24,26 +15,25 @@ android:layout_marginBottom="15dp">
 
         <TextView
             android:id="@+id/textView_row_result_name"
-            android:layout_width="200dp"
+            android:layout_width="289dp"
             android:layout_height="match_parent"
-            android:text="New Text"
-            android:textSize="22sp"
-            tools:ignore="Suspicious0dp"
             android:gravity="center"
-            android:textColor="#FFFFFF" />
+            android:text="New Text"
+            android:textColor="#FFFFFF"
+            android:textSize="22sp"
+            tools:ignore="Suspicious0dp" />
 
         <TextView
             android:id="@+id/textView_row_result_count"
-            android:layout_width="100dp"
-            android:layout_height="66dp"
-            android:layout_marginTop="0dp"
-            android:maxLines="10"
-            android:text="TextView"
-
-            android:textSize="30sp"
-            android:textStyle="bold"
+            android:layout_width="106dp"
+            android:layout_height="match_parent"
             android:gravity="center"
-            android:textColor="#FFFFFF"/>
+            android:maxLines="10"
+
+            android:text="0"
+            android:textColor="#FFFFFF"
+            android:textSize="30sp"
+            android:textStyle="bold" />
     </LinearLayout>
 
 

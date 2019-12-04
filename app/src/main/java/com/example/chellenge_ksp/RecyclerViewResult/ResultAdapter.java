@@ -5,7 +5,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.chellenge_ksp.R;
@@ -31,7 +30,6 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ViewHolder
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         ItemResult currentItem = itemResultArrayList.get(position);
 
-        holder.imageView.setImageResource(currentItem.getImageResource());
         holder.textView_name.setText(currentItem.getName_user());
         holder.textView_points.setText(currentItem.getPoints());
     }
@@ -42,14 +40,12 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ViewHolder
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        private ImageView imageView;
         private TextView textView_name;
         private TextView textView_points;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            imageView = itemView.findViewById(R.id.imageView_row_result);
             textView_name = itemView.findViewById(R.id.textView_row_result_name);
             textView_points = itemView.findViewById(R.id.textView_row_result_count);
         }

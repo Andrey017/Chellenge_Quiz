@@ -2,6 +2,7 @@ package com.example.chellenge_ksp.LocalDatabase;
 
 public class Question {
     int _id;
+    int id_db;
     String question_text;
     int right_answer;
     String answer_1;
@@ -13,8 +14,8 @@ public class Question {
 
     }
 
-    public Question(int _id, String question_text, int right_answer, String answer_1, String answer_2, String answer_3, String answer_4){
-        this._id = _id;
+    public Question(int id_db, String question_text, int right_answer, String answer_1, String answer_2, String answer_3, String answer_4){
+        this.id_db = id_db;
         this.question_text = question_text;
         this.right_answer = right_answer;
         this.answer_1 = answer_1;
@@ -79,4 +80,11 @@ public class Question {
         this.answer_4 = answer_4;
     }
 
+    public int getId_db() {
+        return id_db;
+    }
+
+    public void setId_db(int id_db) {
+        this.id_db = id_db;
+    }
 }

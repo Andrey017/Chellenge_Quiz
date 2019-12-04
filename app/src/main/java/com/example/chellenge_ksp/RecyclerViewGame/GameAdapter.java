@@ -41,7 +41,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.ViewHolder> {
         ItemGame currentItem = itemGameArrayList.get(position);
 
         holder.gtextView.setText(currentItem.getName_game());
-        holder.gimageView.setImageResource(currentItem.getImageResource());
+        //holder.gimageView.setImageResource(currentItem.getImageResource());
     }
 
     @Override
@@ -56,7 +56,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.ViewHolder> {
         public ViewHolder(@NonNull View itemView, final OnItemClickListener listener) {
             super(itemView);
             gtextView = itemView.findViewById(R.id.textView_row_game);
-            gimageView = itemView.findViewById(R.id.imageView_row_game);
+            //gimageView = itemView.findViewById(R.id.imageView_row_game);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

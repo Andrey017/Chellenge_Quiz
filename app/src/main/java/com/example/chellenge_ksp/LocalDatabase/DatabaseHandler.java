@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DatabaseHandler extends SQLiteOpenHelper implements IDatabaseHandler {
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 3;
     private static final String DATABASE_NAME = "quiz";
 
     private static final String TABLE_USER = "user";
@@ -23,6 +23,7 @@ public class DatabaseHandler extends SQLiteOpenHelper implements IDatabaseHandle
 
     private static final String TABLE_QUESTION = "question";
     private static final String KEY_QUESTION_ID = "id";
+    private static final String KEY_QUESTION_ID_DB = "id_db";
     private static final String KEY_QUESTION_TEXT = "question_text";
     private static final String KEY_RIGHT_ANSWER = "right_answer";
     private static final String KEY_ANSWER_1 = "answer_1";
@@ -45,14 +46,16 @@ public class DatabaseHandler extends SQLiteOpenHelper implements IDatabaseHandle
     private static final String KEY_USER_WIN = "user_win";
     private static final String KEY_QUESTIONS = "questions";
     private static final String KEY_END = "ends";
+    private static final String KEY_GAME_NAME = "game_name";
+    private static final String KEY_GAME_SCORE = "game_score";
 
     private static final String CREATE_USER_TABLE = "CREATE TABLE " + TABLE_USER + "(" + KEY_ID + " INTEGER PRIMARY KEY," + KEY_NAME + " text," + KEY_SURNAME + " text," + KEY_EMAIL + " text," + KEY_PASSWORD + " text)";
 
-    private static final String CREATE_QUESTION_TABLE = "CREATE TABLE " + TABLE_QUESTION + "(" + KEY_QUESTION_ID + " INTEGER PRIMARY KEY," + KEY_QUESTION_TEXT + " text," + KEY_RIGHT_ANSWER + " INTEGER," + KEY_ANSWER_1 + " INTEGER," + KEY_ANSWER_2 + " INTEGER," + KEY_ANSWER_3 + " text," + KEY_ANSWER_4 + " text)";
+    private static final String CREATE_QUESTION_TABLE = "CREATE TABLE " + TABLE_QUESTION + "(" + KEY_QUESTION_ID + " INTEGER PRIMARY KEY," + KEY_QUESTION_ID_DB + " INTEGER," + KEY_QUESTION_TEXT + " text," + KEY_RIGHT_ANSWER + " INTEGER," + KEY_ANSWER_1 + " INTEGER," + KEY_ANSWER_2 + " INTEGER," + KEY_ANSWER_3 + " text," + KEY_ANSWER_4 + " text)";
 
     private static final String CREATE_USER_GAME = "CREATE TABLE " + TABLE_USER_GAME + "(" + KEY_ID_GAME_LDB + " INTEGER PRIMARY KEY," + KEY_ID_GAME + " INTEGER," + KEY_ID_USER + " INTEGER," + KEY_NAME_USER + " text," + KEY_SURNAME_USER + " text," + KEY_EMAIL_USER + " text,"  + KEY_SCORE_USER + " INTEGER)";
 
-    private static final String CREATE_GAME = "CREATE TABLE " + TABLE_GAME + "(" + KEY_GAME_ID_LDB + " INTEGER PRIMARY KEY," + KEY_GAME_ID + " INTEGER," + KEY_USER_WIN + " INTEGER," + KEY_QUESTIONS + " text," + KEY_END + " INTEGER)";
+    private static final String CREATE_GAME = "CREATE TABLE " + TABLE_GAME + "(" + KEY_GAME_ID_LDB + " INTEGER PRIMARY KEY," + KEY_GAME_ID + " INTEGER," + KEY_USER_WIN + " INTEGER," + KEY_QUESTIONS + " text," + KEY_END + " INTEGER," + KEY_GAME_NAME + " text,"  + KEY_GAME_SCORE + " INTEGER)";
 
     public DatabaseHandler(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -71,7 +74,7 @@ public class DatabaseHandler extends SQLiteOpenHelper implements IDatabaseHandle
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
-        values.put(KEY_QUESTION_ID, question.get_id());
+        values.put(KEY_QUESTION_ID_DB, question.getId_db());
         values.put(KEY_QUESTION_TEXT, question.getQuestionText());
         values.put(KEY_RIGHT_ANSWER, question.getRightAnswer());
         values.put(KEY_ANSWER_1, question.getAnswer1());
@@ -112,12 +115,13 @@ public class DatabaseHandler extends SQLiteOpenHelper implements IDatabaseHandle
                 Question question = new Question();
 
                 question.set_id(Integer.parseInt(cursor.getString(0)));
-                question.setQuestionText(cursor.getString(1));
-                question.setRightAnswer(Integer.parseInt(cursor.getString(2)));
-                question.setAnswer1(cursor.getString(3));
-                question.setAnswer2(cursor.getString(4));
-                question.setAnswer3(cursor.getString(5));
-                question.setAnswer4(cursor.getString(6));
+                question.setId_db(Integer.parseInt(cursor.getString(1)));
+                question.setQuestionText(cursor.getString(2));
+                question.setRightAnswer(Integer.parseInt(cursor.getString(3)));
+                question.setAnswer1(cursor.getString(4));
+                question.setAnswer2(cursor.getString(5));
+                question.setAnswer3(cursor.getString(6));
+                question.setAnswer4(cursor.getString(7));
 
                 questionList.add(question);
             }while (cursor.moveToNext());
@@ -305,6 +309,8 @@ public class DatabaseHandler extends SQLiteOpenHelper implements IDatabaseHandle
         values.put(KEY_USER_WIN, gameDB.getUser_win());
         values.put(KEY_QUESTIONS, gameDB.getQuestions());
         values.put(KEY_END, gameDB.getEnd());
+        values.put(KEY_GAME_NAME, gameDB.getName());
+        values.put(KEY_GAME_SCORE, gameDB.getScore());
 
         db.insert(TABLE_GAME, null, values);
         db.close();
@@ -328,6 +334,8 @@ public class DatabaseHandler extends SQLiteOpenHelper implements IDatabaseHandle
                 gameDB.setUser_win(Integer.parseInt(cursor.getString(2)));
                 gameDB.setQuestions(cursor.getString(3));
                 gameDB.setEnd(Integer.parseInt(cursor.getString(4)));
+                gameDB.setName(cursor.getString(5));
+                gameDB.setScore(Integer.parseInt(cursor.getString(6)));
 
                 gameDBList.add(gameDB);
             }while (cursor.moveToNext());

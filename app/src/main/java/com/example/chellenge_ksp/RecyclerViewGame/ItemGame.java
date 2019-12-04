@@ -4,9 +4,9 @@ public class ItemGame {
     private String name_game;
     private int imageResource;
 
-    public ItemGame(String name, int imageResource){
+    public ItemGame(String name){
         this.name_game = name;
-        this.imageResource = imageResource;
+        //this.imageResource = imageResource;
     }
 
     public String getName_game() {

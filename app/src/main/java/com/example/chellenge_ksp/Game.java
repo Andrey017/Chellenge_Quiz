@@ -11,10 +11,18 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 
+import com.example.chellenge_ksp.LocalDatabase.DatabaseHandler;
+import com.example.chellenge_ksp.LocalDatabase.GameDB;
+import com.example.chellenge_ksp.LocalDatabase.User;
+import com.example.chellenge_ksp.Network.AddUser;
+import com.example.chellenge_ksp.Network.LoadUsers;
+import com.example.chellenge_ksp.Network.Load_Game;
+import com.example.chellenge_ksp.Network.NewGame;
 import com.example.chellenge_ksp.RecyclerViewGame.GameAdapter;
 import com.example.chellenge_ksp.RecyclerViewGame.ItemGame;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Game extends AppCompatActivity {
 
@@ -25,9 +33,32 @@ public class Game extends AppCompatActivity {
 
     private Button add_new_game;
 
+    private int count_player = 2;
+
+    DatabaseHandler db;
+
+    private String name_game;
+    private String ques;
+    private int user_id;
+    private int game_id;
+
+    private int result = 0;
+
+    private String email_palyer_2;
+    private String email_palyer_3;
+    private String email_palyer_4;
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_games);
+
+        db = new DatabaseHandler(this);
+
+        List<User> userList = db.getAllUser();
+
+        for(User u : userList){
+            user_id = u.get_id();
+        }
 
         add_new_game = (Button)findViewById(R.id.new_game_add);
         add_new_game.setOnClickListener(new View.OnClickListener() {
@@ -35,7 +66,9 @@ public class Game extends AppCompatActivity {
             public void onClick(View v) {
                 final AlertDialog.Builder builder = new AlertDialog.Builder(Game.this);
                 final View view = getLayoutInflater().inflate(R.layout.create_game, null);
-                EditText editText = (EditText) view.findViewById(R.id.textView_name_game);
+
+                final EditText editText_name = (EditText) view.findViewById(R.id.textView_name_game);
+
                 Button cancel = (Button) view.findViewById(R.id.button_cancel_game);
                 Button create = (Button) view.findViewById(R.id.button_create);
 
@@ -53,6 +86,7 @@ public class Game extends AppCompatActivity {
                         editText_player_2.setVisibility(View.VISIBLE);
                         editText_player_3.setVisibility(View.GONE);
                         editText_player_4.setVisibility(View.GONE);
+                        count_player = 2;
                     }
                 });
 
@@ -63,6 +97,8 @@ public class Game extends AppCompatActivity {
                         editText_player_2.setVisibility(View.VISIBLE);
                         editText_player_3.setVisibility(View.VISIBLE);
                         editText_player_4.setVisibility(View.GONE);
+
+                        count_player = 3;
                     }
                 });
 
@@ -73,6 +109,8 @@ public class Game extends AppCompatActivity {
                         editText_player_2.setVisibility(View.VISIBLE);
                         editText_player_3.setVisibility(View.VISIBLE);
                         editText_player_4.setVisibility(View.VISIBLE);
+
+                        count_player = 4;
                     }
                 });
 
@@ -91,6 +129,62 @@ public class Game extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         //тут отправка на сервер будет
+                        name_game = editText_name.getText().toString();
+                        ques = "123";
+
+                        NewGame newGame = new NewGame(name_game, user_id, ques);
+                        newGame.execute();
+
+                        while (result == 0){
+                            result = newGame.getCount();
+                        }
+
+                        if (result == 1){
+                            game_id = newGame.getGame_id();
+                        }
+
+                        result = 0;
+
+                        if(count_player == 2){
+                            email_palyer_2 = editText_player_2.getText().toString();
+
+                            AddUser addUser = new AddUser(game_id, email_palyer_2);
+
+                            addUser.execute();
+                            alertDialog.dismiss();
+                        }else if (count_player == 3){
+                            email_palyer_2 = editText_player_2.getText().toString();
+                            email_palyer_3 = editText_player_3.getText().toString();
+
+                            AddUser addUser = new AddUser(game_id, email_palyer_2);
+                            addUser.execute();
+                            AddUser addUser1 = new AddUser(game_id, email_palyer_3);
+                            addUser1.execute();
+                            alertDialog.dismiss();
+                        }else if (count_player == 4){
+                            email_palyer_2 = editText_player_2.getText().toString();
+                            email_palyer_3 = editText_player_3.getText().toString();
+                            email_palyer_4 = editText_player_4.getText().toString();
+
+                            AddUser addUser = new AddUser(game_id, email_palyer_2);
+                            addUser.execute();
+                            AddUser addUser1 = new AddUser(game_id, email_palyer_3);
+                            addUser1.execute();
+                            AddUser addUser2 = new AddUser(game_id, email_palyer_4);
+                            addUser2.execute();
+                            alertDialog.dismiss();
+                        }
+
+                        db.deleteAllGameDB();
+                        Load_Game load_game = new Load_Game(user_id, db);
+                        load_game.execute();
+                        while (result == 0){
+                            result = load_game.getCount();
+                        }
+
+                        if (result == 1){
+                            buildRecyclerViewGame();
+                        }
                     }
                 });
             }
@@ -101,8 +195,12 @@ public class Game extends AppCompatActivity {
 
     private void createListGame() {
         itemGameArrayList = new ArrayList<>();
-        itemGameArrayList.add(new ItemGame("Play №1", R.drawable.back_1));
-        itemGameArrayList.add(new ItemGame("Play №2", R.drawable.back_1));
+
+        List<GameDB> gameDBList = db.getAllGameDB();
+
+        for (GameDB g : gameDBList){
+            itemGameArrayList.add(new ItemGame(g.getName()));
+        }
     }
 
     private void buildRecyclerViewGame(){
@@ -121,9 +219,36 @@ public class Game extends AppCompatActivity {
             public void onItemClick(int position) {
                 System.out.println(position);
 
-                Intent intent = new Intent(Game.this, Result.class);
-                startActivity(intent);
+                List<GameDB> gameDBList = db.getAllGameDB();
+
+                position++;
+
+                for (GameDB g : gameDBList){
+                    if (g.get_id() == position){
+                        game_id = g.getGame_id();
+                    }
+                }
+
+                db.deleteAllUSer_game();
+
+                LoadUsers loadUsers = new LoadUsers(game_id, db);
+                loadUsers.execute();
+
+                result = 0;
+
+                while (result == 0){
+                    result = loadUsers.getCount();
+                }
+
+                if (result == 1){
+                    openResult();
+                }
             }
         });
+    }
+
+    private void openResult(){
+        Intent intent = new Intent(Game.this, Result.class);
+        startActivity(intent);
     }
 }

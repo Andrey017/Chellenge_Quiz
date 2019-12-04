@@ -6,17 +6,20 @@ public class GameDB {
     int user_win;
     String questions;
     int end;
+    String name;
+    int score;
 
     public GameDB(){
 
     }
 
-    public GameDB(int _id, int game_id, int user_win, String questions, int end){
-        this._id = _id;
+    public GameDB(int game_id, int user_win, String questions, int end, String name, int score){
         this.game_id = game_id;
         this.user_win = user_win;
         this.questions = questions;
         this.end = end;
+        this.name = name;
+        this.score = score;
     }
 
     public int get_id() {
@@ -57,5 +60,21 @@ public class GameDB {
 
     public void setEnd(int end) {
         this.end = end;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
     }
 }
