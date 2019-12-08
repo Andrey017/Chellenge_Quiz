@@ -16,6 +16,8 @@ import java.util.List;
 public class Main extends AppCompatActivity {
 
     public Button new_game;
+    public Button history;
+    public Button settings;
     public Button exit;
     private TextView textView_name_player;
     DatabaseHandler db;
@@ -30,6 +32,8 @@ public class Main extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         new_game = findViewById(R.id.new_game);
+        history = findViewById(R.id.history);
+        settings = findViewById(R.id.settings);
         exit = findViewById(R.id.exit);
         textView_name_player = findViewById(R.id.name_of_player);
         db = new DatabaseHandler(this);
@@ -59,10 +63,27 @@ public class Main extends AppCompatActivity {
             }
         });
 
+        history.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openHistory();
+            }
+        });
+
+        settings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openSettings();
+            }
+        });
+
         exit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 db.deleteAllUser();
+                db.deleteAllUSer_game();
+                db.deleteAllQuestion();
+                db.deleteAllGameDB();
                 openLogin();
             }
         });
@@ -80,6 +101,16 @@ public class Main extends AppCompatActivity {
         Intent intent  = new Intent(this , Game.class);
         startActivity(intent);
         finish();
+    }
+
+    public void openHistory(){
+        Intent intent = new Intent(this, History.class);
+        startActivity(intent);
+    }
+
+    public void openSettings(){
+        Intent intent = new Intent(this, ActivitySettings.class);
+        startActivity(intent);
     }
 
 }

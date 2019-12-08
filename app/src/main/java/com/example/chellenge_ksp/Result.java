@@ -105,6 +105,5 @@ public class Result extends AppCompatActivity {
         intent.putExtra("index", index);
         intent.putExtra("score", score);
         startActivity(intent);
-        finish();
     }
 }

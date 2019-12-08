@@ -8,16 +8,26 @@
     android:background="@drawable/roundedbutton_1"
     android:layout_marginBottom="15dp">
 
-    <TextView
-        android:id="@+id/textView_row_game"
+    <LinearLayout
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="22dp"
+        android:layout_height="match_parent"
+        android:layout_margin="5dp"
         android:layout_weight="3"
-        android:text="New Text"
-        android:textSize="22sp"
-        android:textColor="#FFFFFF"
-        tools:ignore="Suspicious0dp" />
+        android:orientation="vertical"
+        android:background="@drawable/roundedbutton_3">
+
+        <TextView
+            android:id="@+id/textView_row_game"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="22dp"
+            android:layout_weight="3"
+            android:text="New Text"
+            android:gravity="center"
+            android:textColor="#FFFFFF"
+            android:textSize="22sp"
+            tools:ignore="Suspicious0dp" />
+    </LinearLayout>
 
 
 </LinearLayout>
