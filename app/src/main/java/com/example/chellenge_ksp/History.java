@@ -50,7 +50,9 @@ public class History extends AppCompatActivity {
         List<GameDB> gameDBList = db.getAllGameDB();
 
         for (GameDB g : gameDBList){
-            itemOldGamesArrayList.add(new ItemOldGames(g.getName()));
+            if (g.getEnd() == 1){
+                itemOldGamesArrayList.add(new ItemOldGames(g.getName()));
+            }
         }
     }
 

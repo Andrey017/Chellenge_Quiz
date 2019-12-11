@@ -41,6 +41,7 @@ public class Game extends AppCompatActivity {
     private String ques;
     private int user_id;
     private int game_id;
+    private int end_game;
 
     private int result = 0;
 
@@ -249,6 +250,7 @@ public class Game extends AppCompatActivity {
 
     private void openResult(){
         Intent intent = new Intent(Game.this, Result.class);
+        intent.putExtra("check", ""+1);
         startActivity(intent);
     }
 }

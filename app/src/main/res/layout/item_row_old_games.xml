@@ -3,20 +3,21 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="horizontal"
-    android:layout_height="wrap_content"
+    android:layout_height="80dp"
     android:layout_width="match_parent"
     android:background="@drawable/roundedbutton_1"
     android:layout_marginBottom="15dp">
 
     <TextView
         android:id="@+id/textView_row_old_game"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="22dp"
+        android:layout_marginTop="15dp"
         android:layout_weight="3"
+        android:gravity="center"
         android:text="New Text"
-        android:textSize="22sp"
         android:textColor="#FFFFFF"
+        android:textSize="35sp"
         tools:ignore="Suspicious0dp" />
 
 

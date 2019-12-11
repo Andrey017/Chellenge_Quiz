@@ -7,25 +7,20 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class UpdateScore extends AsyncTask<Void, Void, Void> {
-    private int score;
-    private int user_id;
+public class NextRound extends AsyncTask<Void, Void, Void> {
     private int game_id;
-    private int round;
-
+    private int user_id;
     private int count = 0;
 
-    public UpdateScore(int score, int user_id, int game_id, int round){
-        this.score = score;
-        this.user_id = user_id;
+    public NextRound(int game_id, int user_id){
         this.game_id = game_id;
-        this.round = round;
+        this.user_id = user_id;
     }
 
     @Override
     protected Void doInBackground(Void... voids) {
         try{
-            String myURL = "http://94.141.168.185:8009/updatescore?score=" + score + "&user_id=" + user_id + "&game_id=" + game_id + "&round=" + round;
+            String myURL = "http://94.141.168.185:8009/nextround?game_id=" + game_id + "&user_id=" + user_id;
 
             InputStream is = null;
             byte[] data = null;
@@ -55,6 +50,7 @@ public class UpdateScore extends AsyncTask<Void, Void, Void> {
 
                     data = baos.toByteArray();
                     resultString = new String(data, "UTF-8");
+
                     setCount(1);
                 }else{
                     connection.disconnect();
@@ -65,6 +61,7 @@ public class UpdateScore extends AsyncTask<Void, Void, Void> {
         }catch (Exception e){
             e.printStackTrace();
         }
+
 
         return null;
     }

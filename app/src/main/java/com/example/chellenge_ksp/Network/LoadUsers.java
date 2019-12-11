@@ -23,6 +23,8 @@ public class LoadUsers extends AsyncTask<Void, Void, Void> {
     private String surname_user;
     private String email_user;
     private int score_user;
+    private int round_user;
+    private int end_round_user;
 
     public LoadUsers(int game_id, DatabaseHandler db){
         this.game_id = game_id;
@@ -32,7 +34,7 @@ public class LoadUsers extends AsyncTask<Void, Void, Void> {
     @Override
     protected Void doInBackground(Void... voids) {
         try{
-            String myURL = "http://94.141.168.185:8009/loadusergame?game_id=" + game_id;
+            String myURL = "http://94.141.168.185:8009/loadusergameupp?game_id=" + game_id;
 
             try{
                 URL url = new URL(myURL);
@@ -57,8 +59,10 @@ public class LoadUsers extends AsyncTask<Void, Void, Void> {
                     surname_user = jsonObject.getString("surname");
                     email_user = jsonObject.getString("email");
                     score_user = Integer.parseInt(jsonObject.getString("score"));
+                    round_user = Integer.parseInt(jsonObject.getString("round"));
+                    end_round_user = Integer.parseInt(jsonObject.getString("end_round"));
 
-                    db.addUser_Game(new User_game(game_id, user_id, name_user, surname_user, email_user, score_user));
+                    db.addUser_Game(new User_game(game_id, user_id, name_user, surname_user, email_user, score_user, round_user, end_round_user));
                 }
 
                 count++;
@@ -68,11 +72,11 @@ public class LoadUsers extends AsyncTask<Void, Void, Void> {
                 List<User_game> user_gameList = db.getAllUser_game();
 
                 for (User_game u : user_gameList){
-                    String log = "" + u.get_id() + " " + u.getId_game() + " " + u.getUser_id() + " " + u.getName() + " " + u.getSurname() + " " + u.getEmail() + " " + u.getScore();
+                    String log = "" + u.get_id() + " " + u.getId_game() + " " + u.getUser_id() + " " + u.getName() + " " + u.getSurname() + " " + u.getEmail() + " " + u.getScore() + " " + u.getRound() + " " + u.getEnd_round();
                     System.out.println(log);
                 }
 
-                db.close();
+                //db.close();
 
             }catch (Exception e){
                 e.printStackTrace();

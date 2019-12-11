@@ -20,7 +20,8 @@
         android:layout_marginTop="20dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="32dp"
-        android:background="@drawable/roundedbutton_1"
+        android:background="@drawable/roundedbutton_3"
+        android:fontFamily="sans-serif-condensed-medium"
         android:textColor="#ffffff"
         android:text="Зарегистрироваться"
         android:textSize="20sp"
@@ -36,6 +37,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
+        android:fontFamily="sans-serif-condensed-medium"
 
         android:layout_marginTop="10dp"
         android:layout_marginEnd="24dp"
@@ -56,6 +58,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="20dp"
+        android:fontFamily="sans-serif-condensed-medium"
 
         android:layout_marginEnd="24dp"
         android:hint="Фамилия"
@@ -75,6 +78,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
+        android:fontFamily="sans-serif-condensed-medium"
 
         android:layout_marginTop="20dp"
         android:layout_marginEnd="24dp"
@@ -98,6 +102,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
+        android:fontFamily="sans-serif-condensed-medium"
 
         android:layout_marginTop="20dp"
         android:layout_marginEnd="24dp"
@@ -119,6 +124,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
+        android:fontFamily="sans-serif-condensed-medium"
 
         android:layout_marginTop="20dp"
         android:layout_marginEnd="24dp"

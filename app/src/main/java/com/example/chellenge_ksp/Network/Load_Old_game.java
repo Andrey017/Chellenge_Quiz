@@ -13,7 +13,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
 
-public class Load_Game  extends AsyncTask<Void, Void, Void> {
+public class Load_Old_game extends AsyncTask<Void, Void, Void> {
     private int user_id;
 
     private int id;
@@ -26,7 +26,7 @@ public class Load_Game  extends AsyncTask<Void, Void, Void> {
 
     DatabaseHandler db;
 
-    public Load_Game(int user_id, DatabaseHandler db){
+    public Load_Old_game(int user_id, DatabaseHandler db){
         this.user_id = user_id;
         this.db = db;
     }
@@ -34,7 +34,7 @@ public class Load_Game  extends AsyncTask<Void, Void, Void> {
     @Override
     protected Void doInBackground(Void... voids) {
         try{
-            String myURL = "http://94.141.168.185:8009/loadgameuppactive?user_id=" + user_id;
+            String myURL = "http://94.141.168.185:8009/loadgameuppold?user_id=" + user_id;
 
             try{
                 URL url = new URL(myURL);

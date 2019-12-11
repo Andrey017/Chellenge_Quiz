@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DatabaseHandler extends SQLiteOpenHelper implements IDatabaseHandler {
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 5;
     private static final String DATABASE_NAME = "quiz";
 
     private static final String TABLE_USER = "user";
@@ -39,6 +39,8 @@ public class DatabaseHandler extends SQLiteOpenHelper implements IDatabaseHandle
     private static final String KEY_SURNAME_USER = "surname_user";
     private static final String KEY_EMAIL_USER = "email_user";
     private static final String KEY_SCORE_USER = "score_user";
+    private static final String KEY_ROUND_USER = "round_user";
+    private static final String KEY_END_ROUND_USER = "end_round";
 
     private static final String TABLE_GAME = "game";
     private static final String KEY_GAME_ID_LDB = "id_game_ldb";
@@ -53,7 +55,7 @@ public class DatabaseHandler extends SQLiteOpenHelper implements IDatabaseHandle
 
     private static final String CREATE_QUESTION_TABLE = "CREATE TABLE " + TABLE_QUESTION + "(" + KEY_QUESTION_ID + " INTEGER PRIMARY KEY," + KEY_QUESTION_ID_DB + " INTEGER," + KEY_QUESTION_TEXT + " text," + KEY_RIGHT_ANSWER + " INTEGER," + KEY_ANSWER_1 + " INTEGER," + KEY_ANSWER_2 + " INTEGER," + KEY_ANSWER_3 + " text," + KEY_ANSWER_4 + " text)";
 
-    private static final String CREATE_USER_GAME = "CREATE TABLE " + TABLE_USER_GAME + "(" + KEY_ID_GAME_LDB + " INTEGER PRIMARY KEY," + KEY_ID_GAME + " INTEGER," + KEY_ID_USER + " INTEGER," + KEY_NAME_USER + " text," + KEY_SURNAME_USER + " text," + KEY_EMAIL_USER + " text,"  + KEY_SCORE_USER + " INTEGER)";
+    private static final String CREATE_USER_GAME = "CREATE TABLE " + TABLE_USER_GAME + "(" + KEY_ID_GAME_LDB + " INTEGER PRIMARY KEY," + KEY_ID_GAME + " INTEGER," + KEY_ID_USER + " INTEGER," + KEY_NAME_USER + " text," + KEY_SURNAME_USER + " text," + KEY_EMAIL_USER + " text,"  + KEY_SCORE_USER + " INTEGER," + KEY_ROUND_USER + " INTGER," + KEY_END_ROUND_USER + " INTGER)";
 
     private static final String CREATE_GAME = "CREATE TABLE " + TABLE_GAME + "(" + KEY_GAME_ID_LDB + " INTEGER PRIMARY KEY," + KEY_GAME_ID + " INTEGER," + KEY_USER_WIN + " INTEGER," + KEY_QUESTIONS + " text," + KEY_END + " INTEGER," + KEY_GAME_NAME + " text,"  + KEY_GAME_SCORE + " INTEGER)";
 
@@ -246,6 +248,8 @@ public class DatabaseHandler extends SQLiteOpenHelper implements IDatabaseHandle
         values.put(KEY_SURNAME_USER, user_game.getSurname());
         values.put(KEY_EMAIL_USER, user_game.getEmail());
         values.put(KEY_SCORE_USER, user_game.getScore());
+        values.put(KEY_ROUND_USER, user_game.getRound());
+        values.put(KEY_END_ROUND_USER, user_game.getEnd_round());
 
         db.insert(TABLE_USER_GAME, null, values);
         db.close();
@@ -271,6 +275,8 @@ public class DatabaseHandler extends SQLiteOpenHelper implements IDatabaseHandle
                 user_game.setSurname(cursor.getString(4));
                 user_game.setEmail(cursor.getString(5));
                 user_game.setScore(Integer.parseInt(cursor.getString(6)));
+                user_game.setRound(Integer.parseInt(cursor.getString(7)));
+                user_game.setEnd_round(Integer.parseInt(cursor.getString(8)));
 
                 user_gameList.add(user_game);
             }while (cursor.moveToNext());

@@ -36,6 +36,7 @@ public class ActivityQuestion extends AppCompatActivity {
 
     private int user_id;
     private int game_id;
+    private int round;
 
     DatabaseHandler db;
 
@@ -57,6 +58,7 @@ public class ActivityQuestion extends AppCompatActivity {
 
         for (User_game ug : user_gameList){
             game_id = ug.getId_game();
+            round = ug.getRound();
         }
 
         Intent intent = getIntent();
@@ -208,7 +210,8 @@ public class ActivityQuestion extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (index == 5){
-                    UpdateScore updateScore = new UpdateScore(score, user_id, game_id);
+                    round++;
+                    UpdateScore updateScore = new UpdateScore(score, user_id, game_id, round);
 
                     updateScore.execute();
 
@@ -251,6 +254,7 @@ public class ActivityQuestion extends AppCompatActivity {
 
     private void openResult(){
         Intent intent = new Intent(this, Result.class);
+        intent.putExtra("check", "" + 0);
         startActivity(intent);
         finish();
     }
