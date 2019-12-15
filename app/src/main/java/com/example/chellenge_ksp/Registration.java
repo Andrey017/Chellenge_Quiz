@@ -3,10 +3,15 @@ package com.example.chellenge_ksp;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
+
+import com.example.chellenge_ksp.Network.Confirm;
+import com.example.chellenge_ksp.Network.NewCode;
 
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
@@ -23,6 +28,11 @@ public class Registration extends AppCompatActivity {
     String surname_user;
     String password_user_app;
 
+    private Confirm confirm;
+    private NewCode newCode;
+
+    private int result = 0;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,7 +48,7 @@ public class Registration extends AppCompatActivity {
                 EditText surname = (EditText) findViewById(R.id.surname);
                 surname_user = surname.getText().toString();
 
-                EditText email = (EditText) findViewById(R.id.email);
+                final EditText email = (EditText) findViewById(R.id.email);
                 email_user = email.getText().toString();
 
                 EditText password = (EditText) findViewById(R.id.password);
@@ -49,7 +59,66 @@ public class Registration extends AppCompatActivity {
 
                 if (password_user.equals(password_user_app)) {
                     new SendData().execute();
+                    while (result == 0){
+
+                    }
                 }
+
+                final AlertDialog.Builder builder = new AlertDialog.Builder(Registration.this);
+                final View view = getLayoutInflater().inflate(R.layout.email_conf, null);
+
+                final EditText code = view.findViewById(R.id.textView_conf_code);
+                final TextView info = view.findViewById(R.id.textView_info_conf);
+                final Button new_code = view.findViewById(R.id.button_code_recovery);
+
+                Button cancel = view.findViewById(R.id.button_cancel_conf);
+                Button send = view.findViewById(R.id.button_conf);
+
+                builder.setView(view);
+                final AlertDialog alertDialog = builder.create();
+                alertDialog.setCanceledOnTouchOutside(false);
+                alertDialog.show();
+
+
+                cancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        alertDialog.dismiss();
+                        openLoginActivity();
+                    }
+                });
+
+                send.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        confirm = new Confirm(code.getText().toString());
+
+                        confirm.execute();
+                        result = 0;
+                        while (result == 0){
+                            result = confirm.getCount();
+                        }
+
+                        if (result == 1 && confirm.getConf() == 1){
+                            openLoginActivity();
+                        }else {
+                            info.setVisibility(View.VISIBLE);
+                        }
+                    }
+                });
+
+                new_code.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        newCode = new NewCode(email_user, password_user);
+                        newCode.execute();
+
+                        result = 0;
+                        while (result == 0){
+                            result = newCode.getCount();
+                        }
+                    }
+                });
             }
         });
     }
@@ -95,7 +164,7 @@ public class Registration extends AppCompatActivity {
                         data = baos.toByteArray();
                         resultString = new String(data, "UTF-8");
 
-                        openLoginActivity();
+                        result = 1;
 
                     }else{
                         connection.disconnect();

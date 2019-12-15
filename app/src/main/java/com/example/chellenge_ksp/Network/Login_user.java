@@ -19,6 +19,7 @@ public class Login_user extends AsyncTask<Void, Void, Void> {
     private String surname;
     private String email;
     private String password;
+    private int code;
     public int count = 0;
 
     DatabaseHandler db;
@@ -60,7 +61,11 @@ public class Login_user extends AsyncTask<Void, Void, Void> {
                     name = schedule.getString("name");
                     surname = schedule.getString("surname");
                     email = schedule.getString("email");
+                    setEmail(email);
                     password = schedule.getString("password");
+                    setPassword(password);
+                    code = Integer.parseInt(schedule.getString("code"));
+                    setCode(code);
                     count++;
                 }
 
@@ -104,5 +109,29 @@ public class Login_user extends AsyncTask<Void, Void, Void> {
 
     public void setCount(int count) {
         this.count = count;
+    }
+
+    public void setCode(int code) {
+        this.code = code;
+    }
+
+    public int getCode() {
+        return code;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
